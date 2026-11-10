@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 1250" width="1180" height="1250">
+  <defs>
+    <style>
+      .t  { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif; }
+      .m  { font-family: ui-monospace, "Cascadia Code", Consolas, "Microsoft YaHei", monospace; }
+      .h1 { font-size: 26px; font-weight: 700; fill: #101828; }
+      .h2 { font-size: 14px; fill: #5b6b7c; }
+      .nm { font-size: 16px; font-weight: 700; fill: #101828; }
+      .sub{ font-size: 11.5px; fill: #7b8898; letter-spacing: .4px; }
+      .p  { font-size: 12.5px; fill: #344054; }
+      .pm { font-size: 12px; fill: #475467; }
+      .cap{ font-size: 11px; font-weight: 700; fill: #667085; letter-spacing: .6px; }
+      .note{ font-size: 11.5px; fill: #667085; }
+      .key{ font-size: 11.5px; font-weight: 600; }
+    </style>
+    <marker id="dn" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L5,9 L10,0 z" fill="#b6c2d1"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="1250" fill="#ffffff"/>
+
+  <!-- 标题 -->
+  <text x="48" y="52" class="t h1">一个 skill 该长什么样：四档形态</text>
+  <text x="48" y="78" class="t h2">不是每个 skill 都要全套。从最小可用开始，缺什么补什么 —— 每一档只回答一个问题「现在缺的是什么」。</text>
+
+  <!-- ================= 档 1 ================= -->
+  <g>
+    <rect x="48" y="106" width="1084" height="180" rx="12" fill="#f8fafc" stroke="#e3e9f0"/>
+    <rect x="48" y="106" width="5" height="180" rx="2.5" fill="#94a3b8"/>
+    <circle cx="86" cy="140" r="14" fill="#eef2f6" stroke="#cbd5e1"/>
+    <text x="86" y="145" text-anchor="middle" class="t" font-size="12" font-weight="700" fill="#64748b">1</text>
+    <text x="110" y="136" class="t nm">纯文本</text>
+    <text x="110" y="155" class="t sub">MINIMAL</text>
+
+    <text x="86" y="186" class="t pm">skill-name/</text>
+    <text x="86" y="208" class="t pm">├── SKILL.md</text>
+    <text x="270" y="208" class="t note">触发描述 + 执行步骤 + 反模式</text>
+    <text x="86" y="230" class="t pm">└── evals/basic.md</text>
+    <text x="270" y="230" class="t note">≥2 个真实场景 —— create 硬门必需</text>
+
+    <line x1="640" y1="120" x2="640" y2="272" stroke="#e3e9f0"/>
+    <text x="672" y="140" class="t cap">什么时候够用</text>
+    <text x="672" y="166" class="t p">· 单一触发场景，步骤 ≤ 20 行</text>
+    <text x="672" y="190" class="t p">· 没有确定性逻辑，全靠模型判断</text>
+    <text x="672" y="218" class="t p" fill="#b54708">代价：容错全靠措辞，没有可复现的检查</text>
+  </g>
+
+  <line x1="590" y1="292" x2="590" y2="318" stroke="#b6c2d1" stroke-width="1.5" marker-end="url(#dn)"/>
+  <text x="606" y="311" class="t note">当 SKILL.md 开始超 100 行，或内容跨了不同领域 →</text>
+
+  <!-- ================= 档 2 ================= -->
+  <g>
+    <rect x="48" y="326" width="1084" height="180" rx="12" fill="#f8fafc" stroke="#e3e9f0"/>
+    <rect x="48" y="326" width="5" height="180" rx="2.5" fill="#4c9aff"/>
+    <circle cx="86" cy="360" r="14" fill="#e8f1ff" stroke="#a8caff"/>
+    <text x="86" y="365" text-anchor="middle" class="t" font-size="12" font-weight="700" fill="#2b6cb0">2</text>
+    <text x="110" y="356" class="t nm">+ 参考</text>
+    <text x="110" y="375" class="t sub">PROGRESSIVE</text>
+
+    <text x="86" y="406" class="t pm">+ references/</text>
+    <text x="270" y="406" class="t note">拆出去按需加载的协议文本</text>
+    <text x="86" y="428" class="t pm">    ├── 长协议.md</text>
+    <text x="86" y="450" class="t pm">    └── 跨领域细节.md</text>
+
+    <line x1="640" y1="340" x2="640" y2="492" stroke="#e3e9f0"/>
+    <text x="672" y="360" class="t cap">什么时候拆</text>
+    <text x="672" y="386" class="t p">· SKILL.md 将超过 100 行</text>
+    <text x="672" y="410" class="t p">· 内容跨不同领域（如金融 schema vs 销售 schema）</text>
+    <text x="672" y="434" class="t p">· 高级功能很少被用到</text>
+    <text x="672" y="462" class="t key" fill="#2b6cb0">判据：agent 读了能直接指导下一步动作 → references/</text>
+  </g>
+
+  <line x1="590" y1="512" x2="590" y2="538" stroke="#b6c2d1" stroke-width="1.5" marker-end="url(#dn)"/>
+  <text x="606" y="531" class="t note">当出现「每次都要重新生成同一段代码」→</text>
+
+  <!-- ================= 档 3 ================= -->
+  <g>
+    <rect x="48" y="546" width="1084" height="180" rx="12" fill="#f8fafc" stroke="#e3e9f0"/>
+    <rect x="48" y="546" width="5" height="180" rx="2.5" fill="#7c5cff"/>
+    <circle cx="86" cy="580" r="14" fill="#f0ecff" stroke="#c9bcff"/>
+    <text x="86" y="585" text-anchor="middle" class="t" font-size="12" font-weight="700" fill="#5b3fd1">3</text>
+    <text x="110" y="576" class="t nm">+ 脚本</text>
+    <text x="110" y="595" class="t sub">DETERMINISTIC</text>
+
+    <text x="86" y="626" class="t pm">+ scripts/</text>
+    <text x="270" y="626" class="t note">确定性操作，不靠模型判断</text>
+    <text x="86" y="648" class="t pm">    ├── main.py</text>
+    <text x="86" y="670" class="t pm">    └── _common.py</text>
+    <text x="270" y="670" class="t note">共享规则 —— 防两处各写一套解析</text>
+
+    <line x1="640" y1="560" x2="640" y2="712" stroke="#e3e9f0"/>
+    <text x="672" y="580" class="t cap">什么时候加</text>
+    <text x="672" y="606" class="t p">· 校验 / 格式化 / 解析这类确定性操作</text>
+    <text x="672" y="630" class="t p">· 同一段代码会被反复生成</text>
+    <text x="672" y="654" class="t p">· 需要显式的错误处理与退出码</text>
+    <text x="672" y="682" class="t key" fill="#5b3fd1">判据：不需要 AI 判断的事，交给脚本更可靠也更省 token</text>
+  </g>
+
+  <line x1="590" y1="732" x2="590" y2="758" stroke="#b6c2d1" stroke-width="1.5" marker-end="url(#dn)"/>
+  <text x="606" y="751" class="t note">当别人要接手、要发布、要问「凭什么这么设计」→</text>
+
+  <!-- ================= 档 4 ================= -->
+  <g>
+    <rect x="48" y="766" width="1084" height="180" rx="12" fill="#f8fafc" stroke="#e3e9f0"/>
+    <rect x="48" y="766" width="5" height="180" rx="2.5" fill="#e8912e"/>
+    <circle cx="86" cy="800" r="14" fill="#fdf1e3" stroke="#f5cf9e"/>
+    <text x="86" y="805" text-anchor="middle" class="t" font-size="12" font-weight="700" fill="#b45309">4</text>
+    <text x="110" y="796" class="t nm">+ 工程化</text>
+    <text x="110" y="815" class="t sub">SHIPPABLE</text>
+
+    <text x="86" y="846" class="t pm">+ records/</text>
+    <text x="270" y="846" class="t note">历史留档：审查报告 / 评测快照</text>
+    <text x="86" y="868" class="t pm">+ assets/</text>
+    <text x="270" y="868" class="t note">图示 / 图片 / 模板 —— 给人看</text>
+    <text x="86" y="890" class="t pm">+ README.md  CHANGELOG.md  LICENSE</text>
+
+    <line x1="640" y1="780" x2="640" y2="932" stroke="#e3e9f0"/>
+    <text x="672" y="800" class="t cap">什么时候值得</text>
+    <text x="672" y="826" class="t p">· 要发布 / 要多人接手 / 要能追责</text>
+    <text x="672" y="850" class="t p">· 需要回答「当初凭什么这么设计」</text>
+    <text x="672" y="874" class="t p">· 有对外说明与版本变更要交代</text>
+    <text x="672" y="902" class="t key" fill="#b45309">判据：别人会追问来源时，得拿得出东西</text>
+  </g>
+
+  <!-- ================= 底部：读者分界 ================= -->
+  <rect x="48" y="990" width="1084" height="216" rx="12" fill="#101828"/>
+  <text x="80" y="1028" class="t" font-size="15" font-weight="700" fill="#ffffff">一条判据管所有目录：按「谁读」分，不按「文本还是二进制」分</text>
+  <text x="80" y="1052" class="t" font-size="12" fill="#98a2b3">这条比上面四档更重要 —— 目录放错了不会报错，但会让 agent 读到一堆它用不上的东西，或者让人找不到该看的说明。</text>
+
+  <rect x="80" y="1072" width="500" height="112" rx="9" fill="#182230" stroke="#2b3d51"/>
+  <text x="102" y="1100" class="t" font-size="12" font-weight="700" fill="#7ea6ff">agent 读（会被加载进上下文）</text>
+  <text x="102" y="1126" class="m" font-size="11.5" fill="#d0d9e6">SKILL.md · references/ · scripts/ · evals/</text>
+  <text x="102" y="1150" class="t" font-size="11" fill="#8b98a8">判断标准：读进来能直接指导下一步动作</text>
+  <text x="102" y="1172" class="t" font-size="11" fill="#8b98a8">不满足就别放这儿 —— 浪费上下文，还不产生动作</text>
+
+  <rect x="600" y="1072" width="500" height="112" rx="9" fill="#182230" stroke="#2b3d51"/>
+  <text x="622" y="1100" class="t" font-size="12" font-weight="700" fill="#ffc078">人读（不该被 agent 加载）</text>
+  <text x="622" y="1126" class="m" font-size="11.5" fill="#d0d9e6">assets/ · records/ · README · CHANGELOG</text>
+  <text x="622" y="1150" class="t" font-size="11" fill="#8b98a8">判断标准：作用是人理解全局，不产生下一步动作</text>
+  <text x="622" y="1172" class="t" font-size="11" fill="#8b98a8">典型错误：把图示 HTML 塞进 references/</text>
+
+  <text x="80" y="1218" class="t" font-size="11.5" fill="#667085">注：只有 SKILL.md 与 evals/basic.md 是「必需」；其余每一项都要有明确理由才加，理由写不出来就不加。</text>
+</svg>

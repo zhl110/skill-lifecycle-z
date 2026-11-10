@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>skill-lifecycle-z · 工作路径图</title>
+<style>
+  :root{
+    --bg:#080b10; --panel:#111925; --line:#1e2b3a; --line2:#2b3d51;
+    --fg:#e6edf3; --fg2:#b6c2d1; --mut:#7d8b9c;
+    --create:#3ddc97; --improve:#4c9aff; --vet:#ffb020; --pub:#ff5d5d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:
+      radial-gradient(1000px 520px at 18% -6%, rgba(76,154,255,.12), transparent 62%),
+      radial-gradient(820px 460px at 88% 2%, rgba(124,92,255,.09), transparent 60%),
+      var(--bg);
+    color:var(--fg);
+    font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1140px;margin:0 auto;padding:26px 20px 60px}
+  h1{margin:0;font-size:19px;font-weight:700;letter-spacing:.3px}
+  .sub{margin:5px 0 0;color:var(--mut);font-size:12.5px;max-width:780px}
+  .sub b{color:var(--fg2)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 6px;font-size:11.5px;color:var(--mut)}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  svg{width:100%;height:auto;display:block;margin-top:8px}
+  .stage-hit{cursor:pointer}
+  .stage-hit:hover .card{filter:brightness(1.28)}
+  .stage-hit:hover .info{opacity:1}
+  .info{opacity:.86;transition:.18s}
+  .card{transition:.18s}
+
+  #drawer{
+    position:fixed;top:0;right:0;height:100%;width:400px;max-width:92vw;z-index:80;
+    background:linear-gradient(180deg,#0f1721,#0b1219);border-left:1px solid var(--line2);
+    box-shadow:-20px 0 50px rgba(0,0,0,.55);
+    transform:translateX(102%);transition:transform .26s cubic-bezier(.4,0,.2,1);
+    display:flex;flex-direction:column;
+  }
+  #drawer.on{transform:none}
+  .dh{display:flex;align-items:flex-start;gap:10px;padding:18px 18px 13px;border-bottom:1px solid var(--line)}
+  .dh h3{margin:0;font-size:15px;line-height:1.35}
+  .dh .k{margin-top:3px;font-size:11px;color:var(--mut);font-family:ui-monospace,Consolas,monospace}
+  .x{appearance:none;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--mut);
+     width:26px;height:26px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;flex:none}
+  .x:hover{color:var(--fg);border-color:#4c9aff}
+  .db{padding:16px 18px 30px;overflow:auto;flex:1}
+  .sec{margin-bottom:15px}
+  .sec .t{font-size:10.5px;letter-spacing:1.2px;color:#63748a;font-weight:700;margin-bottom:6px}
+  .sec .v{font-size:12.6px;color:var(--fg2);line-height:1.66}
+  .sec ul{margin:0;padding-left:16px}
+  .sec li{margin:3px 0;font-size:12.5px;color:var(--fg2)}
+  code{font-family:ui-monospace,Consolas,monospace;font-size:11.6px;background:rgba(255,255,255,.06);
+       padding:1.5px 5px;border-radius:5px;color:#cfdcec;word-break:break-all}
+  footer{margin-top:22px;font-size:11.5px;color:#55677c;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>skill-lifecycle-z · 工作路径图</h1>
+  <p class="sub">
+    从「用户说一句话」到「东西落地」的完整走法。看三件事：<b>从哪个口进</b>、<b>中间有几道门</b>、<b>最后落到哪</b>。
+    点任意阶段看细则。
+  </p>
+
+  <div class="legend">
+    <span><i style="background:#3ddc97"></i>CREATE 创建</span>
+    <span><i style="background:#4c9aff"></i>IMPROVE 改进</span>
+    <span><i style="background:#ffb020"></i>VET 审查</span>
+    <span><i style="background:#ff5d5d"></i>PUBLISH 发布 / 终止</span>
+    <span><i style="background:#ffb020"></i>门 = 停下来等人确认</span>
+  </div>
+
+<svg viewBox="0 0 1100 990" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3d5169"/>
+    </marker>
+    <marker id="arR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ff5d5d"/>
+    </marker>
+    <marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3ddc97"/>
+    </marker>
+  </defs>
+
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#e6edf3}
+    .lbl{font-size:11px;fill:#7d8b9c;letter-spacing:.5px}
+    .name{font-size:15px;font-weight:700;letter-spacing:.4px}
+    .zh{font-size:11px;fill:#8b98a8;letter-spacing:1.2px}
+    .pt{font-size:11.5px;fill:#b6c2d1}
+    .mono{font-family:ui-monospace,Consolas,monospace;font-size:11px}
+    .gate{font-size:10.5px;fill:#ffb020;font-weight:700}
+    .card{fill:#131a23;stroke:#22303d;stroke-width:1}
+  </style>
+
+  <!-- ======== 入口 ======== -->
+  <g class="stage-hit" data-id="entry">
+    <rect class="card" x="60" y="18" width="300" height="64" rx="11"/>
+    <circle cx="88" cy="50" r="13" fill="#1b2733" stroke="#3d5169"/>
+    <text x="88" y="55" text-anchor="middle" font-size="13" fill="#9dc6ff">⌘</text>
+    <text x="112" y="46" class="name" font-size="13.5">用户说一句话</text>
+    <text x="112" y="66" class="pt" font-size="11">先判意图，再决定走哪条路</text>
+  </g>
+
+  <!-- ======== 阶段 1 CREATE ======== -->
+  <line x1="210" y1="82" x2="210" y2="138" stroke="#3d5169" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="222" y="116" class="lbl">CP1 确认走哪条路</text>
+
+  <g class="stage-hit" data-id="create">
+    <rect class="card" x="60" y="140" width="300" height="120" rx="11"/>
+    <rect x="60" y="140" width="300" height="3" rx="1.5" fill="#3ddc97"/>
+    <circle cx="90" cy="172" r="13" fill="rgba(61,220,151,.16)" stroke="rgba(61,220,151,.5)"/>
+    <text x="90" y="177" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3ddc97">1</text>
+    <text x="114" y="170" class="name">CREATE</text>
+    <text x="114" y="188" class="zh">创建</text>
+    <line x1="76" y1="204" x2="344" y2="204" stroke="#1e2b3a"/>
+    <text x="78" y="222" class="pt">· CAPTURED 从执行痕迹提取</text>
+    <text x="78" y="240" class="pt">· DERIVED 合并现有 skill</text>
+    <text x="78" y="258" class="pt" fill="#63748a">· 从零设计 → 不归本 skill</text>
+  </g>
+  <g class="info">
+    <text x="400" y="163" class="gate">门</text><text x="428" y="163" class="pt">CP1 · 走痕迹 / 合并 / 从零（外部）</text>
+    <text x="400" y="187" class="lbl">跑</text><text x="428" y="187" class="mono" fill="#9dc6ff">validate_skill.py --mode create</text>
+    <text x="400" y="211" class="lbl">判</text><text x="428" y="211" class="pt">格式 + 触发词 + 版本 + 反模式 + evals ≥2 场景</text>
+    <text x="400" y="235" class="lbl">出</text><text x="428" y="235" class="pt">可加载、可评测的 skill</text>
+  </g>
+
+  <!-- ======== 阶段 2 IMPROVE ======== -->
+  <line x1="210" y1="260" x2="210" y2="308" stroke="#3d5169" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="222" y="288" class="lbl">CP5 确认要不要继续</text>
+
+  <g class="stage-hit" data-id="improve">
+    <rect class="card" x="60" y="310" width="300" height="120" rx="11"/>
+    <rect x="60" y="310" width="300" height="3" rx="1.5" fill="#4c9aff"/>
+    <circle cx="90" cy="342" r="13" fill="rgba(76,154,255,.16)" stroke="rgba(76,154,255,.5)"/>
+    <text x="90" y="347" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4c9aff">2</text>
+    <text x="114" y="340" class="name">IMPROVE</text>
+    <text x="114" y="358" class="zh">改进</text>
+    <line x1="76" y1="374" x2="344" y2="374" stroke="#1e2b3a"/>
+    <text x="78" y="392" class="pt">· 标准路径 5 步迭代循环</text>
+    <text x="78" y="410" class="pt">· FIX 模式 定向修一个问题</text>
+    <text x="78" y="428" class="pt" fill="#63748a">· 判据是「没改坏」，不是「更完美」</text>
+  </g>
+  <g class="info">
+    <text x="400" y="333" class="gate">门</text><text x="428" y="333" class="pt">CP2 备份 · CP3 每轮 before/after</text>
+    <text x="400" y="357" class="lbl">跑</text><text x="428" y="357" class="mono" fill="#9dc6ff">validate_skill.py --mode improve</text>
+    <text x="400" y="381" class="lbl">判</text><text x="428" y="381" class="pt">原有内容没被改坏（不强制补齐本来就没有的 evals）</text>
+    <text x="400" y="405" class="lbl">出</text><text x="428" y="405" class="pt">变好了，且没退化</text>
+  </g>
+
+  <!-- ======== 阶段 3 VET ======== -->
+  <line x1="210" y1="430" x2="210" y2="478" stroke="#3d5169" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="222" y="458" class="lbl">CP5 确认要不要继续</text>
+
+  <g class="stage-hit" data-id="vet">
+    <rect class="card" x="60" y="480" width="300" height="120" rx="11"/>
+    <rect x="60" y="480" width="300" height="3" rx="1.5" fill="#ffb020"/>
+    <circle cx="90" cy="512" r="13" fill="rgba(255,176,32,.16)" stroke="rgba(255,176,32,.5)"/>
+    <text x="90" y="517" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffb020">3</text>
+    <text x="114" y="510" class="name">VET</text>
+    <text x="114" y="528" class="zh">审查</text>
+    <line x1="76" y1="544" x2="344" y2="544" stroke="#1e2b3a"/>
+    <text x="78" y="562" class="pt">· 来源 → 代码 → 权限 → 分级</text>
+    <text x="78" y="580" class="pt">· 21 条红牌，人工逐条核</text>
+    <text x="78" y="598" class="pt" fill="#63748a">· 红线由人判，机器只定位</text>
+  </g>
+  <g class="info">
+    <text x="400" y="503" class="gate">门</text><text x="428" y="503" class="pt">CP4 · 结论交人：装不装</text>
+    <text x="400" y="527" class="lbl">跑</text><text x="428" y="527" class="mono" fill="#9dc6ff">validate_skill.py --mode vet</text>
+    <text x="400" y="551" class="lbl">判</text><text x="428" y="551" class="pt">裸露载荷 → 拒装；引号内 → 只降 HIGH，不放过</text>
+    <text x="400" y="575" class="lbl">出</text><text x="428" y="575" class="pt">VERDICT + 待人工核查清单</text>
+  </g>
+
+  <!-- VET 的终止分支 -->
+  <path d="M92 606 L34 606 L34 842 L150 842 L150 876" fill="none" stroke="#ff5d5d" stroke-width="1.6"
+        stroke-dasharray="6 4" marker-end="url(#arR)"/>
+  <text x="26" y="712" class="lbl" fill="#ff8f8f" transform="rotate(-90 26 712)" text-anchor="middle">CRITICAL → 终止</text>
+
+  <!-- ======== 阶段 4 PUBLISH ======== -->
+  <line x1="210" y1="600" x2="210" y2="648" stroke="#3d5169" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="222" y="628" class="lbl">只有 CP4 通过才走这条</text>
+
+  <g class="stage-hit" data-id="publish">
+    <rect class="card" x="60" y="650" width="300" height="120" rx="11"/>
+    <rect x="60" y="650" width="300" height="3" rx="1.5" fill="#ff5d5d"/>
+    <circle cx="90" cy="682" r="13" fill="rgba(255,93,93,.16)" stroke="rgba(255,93,93,.5)"/>
+    <text x="90" y="687" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ff5d5d">4</text>
+    <text x="114" y="680" class="name">PUBLISH</text>
+    <text x="114" y="698" class="zh">发布</text>
+    <line x1="76" y1="714" x2="344" y2="714" stroke="#1e2b3a"/>
+    <text x="78" y="732" class="pt">· 备份 → 复制 → 指纹核对</text>
+    <text x="78" y="750" class="pt">· 装后复验 + 留档</text>
+    <text x="78" y="768" class="pt" fill="#63748a">· 唯一不可逆、且全局生效</text>
+  </g>
+  <g class="info">
+    <text x="400" y="673" class="gate">门</text><text x="428" y="673" class="pt">CP-P1 安装 · CP-P2 留档</text>
+    <text x="400" y="697" class="lbl">跑</text><text x="428" y="697" class="mono" fill="#9dc6ff">--mode vet --verify-seal &lt;审查时记下的值&gt;</text>
+    <text x="400" y="721" class="lbl">判</text><text x="428" y="721" class="pt">指纹不一致 → 退出码 3，整份审查结论作废</text>
+    <text x="400" y="745" class="lbl">出</text><text x="428" y="745" class="pt">装进目标目录 + 可追溯</text>
+  </g>
+
+  <!-- ======== 出口 ======== -->
+  <path d="M210 770 L210 812 L505 812 L505 874" fill="none" stroke="#3ddc97" stroke-width="1.6" marker-end="url(#arG)"/>
+
+  <g class="stage-hit" data-id="reject">
+    <rect x="60" y="878" width="250" height="86" rx="11" fill="rgba(255,93,93,.08)" stroke="rgba(255,93,93,.45)"/>
+    <text x="185" y="907" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ff8f8f">⛔ 拒装</text>
+    <text x="185" y="930" text-anchor="middle" class="pt" font-size="11">DO NOT INSTALL · 退出码 2</text>
+    <text x="185" y="949" text-anchor="middle" class="pt" font-size="10.5" fill="#63748a">不可被「用户坚持要装」绕过</text>
+  </g>
+
+  <g class="stage-hit" data-id="installed">
+    <rect x="378" y="878" width="256" height="86" rx="11" fill="rgba(61,220,151,.08)" stroke="rgba(61,220,151,.42)"/>
+    <text x="506" y="907" text-anchor="middle" font-size="13.5" font-weight="700" fill="#7ff0bd">✅ 装上</text>
+    <text x="506" y="930" text-anchor="middle" class="pt" font-size="11">装后复验通过 + 留档</text>
+    <text x="506" y="949" text-anchor="middle" class="pt" font-size="10.5" fill="#63748a">下次还能查出「当时凭什么装的」</text>
+  </g>
+
+  <g class="stage-hit" data-id="pause">
+    <rect x="702" y="878" width="278" height="86" rx="11" fill="rgba(255,255,255,.035)" stroke="#2b3d51"/>
+    <text x="841" y="907" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b6c2d1">⏸ 停在当前阶段</text>
+    <text x="841" y="930" text-anchor="middle" class="pt" font-size="11">任何阶段都可能结束</text>
+    <text x="841" y="949" text-anchor="middle" class="pt" font-size="10.5" fill="#63748a">用户说「可以了」就停，不自动往下走</text>
+  </g>
+
+</svg>
+
+  <footer>
+    判定与退出码严格一致：<code>0</code> 通过 · <code>1</code> 格式不过 ·
+    <code>2</code> 拒装（CRITICAL）或参数错误 · <code>3</code> seal 不一致。
+    本图讲「怎么走」，讲「分成哪几层」的是 <code>architecture.html</code>。
+  </footer>
+</div>
+
+<aside id="drawer">
+  <div class="dh">
+    <div style="flex:1;min-width:0">
+      <h3 id="dTitle">—</h3>
+      <div class="k" id="dKind"></div>
+    </div>
+    <button class="x" id="dClose">✕</button>
+  </div>
+  <div class="db" id="dBody"></div>
+</aside>
+
+<script>
+const D = {
+  entry: {
+    title:'入口：先判意图，再选路',
+    kind:'入口判断',
+    secs:[
+      ['判断依据','用户说的那句话落在哪个动作上：做 / 改 / 查 / 装。不确定就直接问，不要猜着往下走。'],
+      ['三条常见入口','「帮我把刚才的任务总结成 skill」→ CREATE；「这个 skill 效果不好」→ IMPROVE；「这个安不安全」→ VET。'],
+      ['为什么不自动串联','一个阶段做完，不代表下一个阶段该做。连做两个以上阶段而没经用户确认，要退回上一个 CHECKPOINT。']
+    ]
+  },
+  create: {
+    title:'阶段 1 · CREATE（创建）',
+    kind:'validate_skill.py --mode create',
+    secs:[
+      ['两条合法路径','CAPTURED：从执行痕迹里提取可复用的做法。DERIVED：把几个总一起用的 skill 合成一个。'],
+      ['什么时候不该走这里','从零设计一个全新的 skill（既无痕迹、也无合并对象）——这不是本 skill 的活，交回 skill-creator。'],
+      ['硬门','格式 + 触发词 + metadata.version + 反模式小节 + evals 至少 2 个**真实场景**。全绿才算创建完成。'],
+      ['场景计数为什么严格','曾经两个 `## 前置条件` / `## 后置条件` 标题就能凑成两个"场景"，零场景的 evals 也能过门。现在必须命中关键词或同时有「输入 + 预期」，且标题下要有正文、要剥掉围栏代码块。']
+    ]
+  },
+  improve: {
+    title:'阶段 2 · IMPROVE（改进）',
+    kind:'validate_skill.py --mode improve',
+    secs:[
+      ['两条路径','标准路径：5 步迭代循环（冷启动 → 观察 → 提炼 → 改写 → 验证）。FIX 模式：已知具体问题，定向修。'],
+      ['判据为什么放松','improve 只要求「原有内容没被改坏」，不强制补齐目标 skill 本来就没有的 evals / 反模式小节。否则改进一个老 skill 会被 create 硬门直接卡死。'],
+      ['两道门','CP2：动手前备份 + 展示本轮要改什么。CP3：每轮改完展示 before/after，等用户说好再继续。'],
+      ['别忘的收尾','bump metadata.version；marketplace 装的 skill 要标记 userModified，否则会被自动更新覆盖。']
+    ]
+  },
+  vet: {
+    title:'阶段 3 · VET（审查）',
+    kind:'validate_skill.py --mode vet',
+    secs:[
+      ['四步','来源检查 → 代码审查（21 条红牌）→ 权限评估（allowed-tools / MCP / 连接器）→ 风险分级。'],
+      ['红牌怎么判','裸露在正文的载荷 = 命令 → CRITICAL 拒装；封在引号内的 = 引用 → 只降到 HIGH，必须人工看一眼；红牌表行/模式定义 = INFO。'],
+      ['为什么机器不做最终判决','「引用一个形态」和「伪装成引用的命令」在字符层面无法区分——协议文档自己就要引用红牌形态才能教人识别。判不了的不猜，交给人。'],
+      ['有机检不到的红线','RF07 反混淆、RF21 包外符号链接没有可靠的正则形态。机器检不出 ≠ 不是红线。'],
+      ['出口','CP4：把风险等级和红牌摆给用户，装不装由人定。CRITICAL 命中则直接终止，不进入 PUBLISH。']
+    ]
+  },
+  publish: {
+    title:'阶段 4 · PUBLISH（发布）',
+    kind:'--mode vet --verify-seal',
+    secs:[
+      ['为什么单独成阶段','这是唯一**不可逆且全局生效**的动作。前面三步都是读和写文件，这一步改变的是 agent 以后的行为。'],
+      ['TOCTOU','审查完到安装之间，文件可能被换掉。所以审查时记下内容指纹（--seal），安装前核对（--verify-seal）。不一致 → 退出码 3，整份审查结论作废，必须重审。'],
+      ['装完要复验','装进目标目录后再跑一次，确认装进去的东西和审过的一致。'],
+      ['留档','记下审查时间、审查人、工具版本、文件指纹。半年后有人问「这玩意儿凭什么装进来的」，得有东西可查。']
+    ]
+  },
+  reject: {
+    title:'出口 · 拒装',
+    kind:'DO NOT INSTALL · 退出码 2',
+    secs:[
+      ['触达条件','CRITICAL 红牌命中（21 条里有 6 条是 CRITICAL / BLOCKING）。'],
+      ['不可协商','这条不能被「用户坚持要装」绕过。红线一旦可以被人情绕过，整条安全链就形同虚设。'],
+      ['后续','把命中的红牌和行号摆给用户看，让他自己决定要不要找替代方案。不是「我说不行」，是「这几行在干什么，你看」。']
+    ]
+  },
+  installed: {
+    title:'出口 · 装上',
+    kind:'装后复验 + 留档',
+    secs:[
+      ['完整链路','审查通过（CP4）→ 用户明确同意 → 备份 → 复制 → 指纹核对 → 装后复验 → 留档（CP-P1 / CP-P2）。'],
+      ['为什么留档','治理工具的价值一半在「当时判断对了」，另一半在「事后能追溯」。没有留档，审查结论就是一次性的。']
+    ]
+  },
+  pause: {
+    title:'出口 · 停在当前阶段',
+    kind:'任何阶段都可能结束',
+    secs:[
+      ['默认行为','用户说「可以了」就停。不因为「流程还剩两步」就自动往下推。'],
+      ['这不叫失败','四个阶段本来就允许只走其中一段。审完不装、改完不审，都是正常结束。']
+    ]
+  }
+};
+
+const drawer = document.getElementById('drawer');
+const dTitle = document.getElementById('dTitle');
+const dKind  = document.getElementById('dKind');
+const dBody  = document.getElementById('dBody');
+
+function open(id){
+  const d = D[id]; if(!d) return;
+  dTitle.textContent = d.title;
+  dKind.textContent = d.kind;
+  dBody.innerHTML = '';
+  d.secs.forEach(([k,v])=>{
+    const s = document.createElement('div'); s.className='sec';
+    s.innerHTML = '<div class="t">'+k+'</div><div class="v">'+v.replace(/`([^`]+)`/g,'<code>$1</code>')+'</div>';
+    dBody.appendChild(s);
+  });
+  drawer.classList.add('on');
+}
+document.querySelectorAll('.stage-hit').forEach(g=>{
+  g.addEventListener('click', ()=> open(g.dataset.id));
+});
+document.getElementById('dClose').onclick = ()=> drawer.classList.remove('on');
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') drawer.classList.remove('on'); });
+</script>
+</body>
+</html>

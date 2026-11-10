@@ -1,0 +1,61 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+
+# ---- 测试与覆盖率 ----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+
+# ---- 编辑器与 IDE ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+
+# ---- 操作系统 ----
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ---- 日志与临时文件 ----
+*.log
+*.tmp
+*.temp
+*.bak
+*.bak[0-9]*
+*.orig
+*~
+.~*
+
+# ---- 本地工作区（不属于公开包） ----
+/out/
+/_local/
+/scratch/
+/tmp/
+
+# ---- 压缩包 / 构建产物 ----
+*.zip
+*.7z
+*.tar.gz

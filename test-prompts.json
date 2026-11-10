@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "command": "skill-create",
+    "prompt": "帮我把刚才的任务总结成skill",
+    "expected": "触发CAPTURED模式，分析执行痕迹，创建新skill",
+    "mode": "CAPTURED"
+  },
+  {
+    "id": 2,
+    "command": "skill-create",
+    "prompt": "把weather和forecast这两个skill合并成一个",
+    "expected": "触发DERIVED模式，分析两个skill，创建复合skill",
+    "mode": "DERIVED"
+  },
+  {
+    "id": 3,
+    "command": "skill-improve",
+    "prompt": "humanize-ai-text这个skill效果不好，帮我改进",
+    "expected": "触发标准路径，读取skill，设计测试prompt，迭代改进",
+    "mode": "standard"
+  },
+  {
+    "id": 4,
+    "command": "skill-improve",
+    "prompt": "skill输出格式不对，总是漏步骤",
+    "expected": "触发FIX模式，定位问题，针对性修复",
+    "mode": "FIX"
+  },
+  {
+    "id": 5,
+    "command": "skill-vet",
+    "prompt": "这个skill安不安全？帮我审查一下",
+    "expected": "触发审查协议，来源检查→代码审查→权限评估→风险分级",
+    "mode": "full"
+  },
+  {
+    "id": 6,
+    "command": "skill-create",
+    "prompt": "我这个项目里文档和脚本都齐了，帮我做个 skill 当入口就行，不用把内容搬进来",
+    "expected": "判为 CREATE + 路由型（只写入口）：走 CAPTURED 路径但素材是项目文件；硬门仍要求反模式小节与 evals（含 1 个反向场景）；先确认 skill 放项目内还是用户级，因为包外引用的放法决定它能不能搬家",
+    "mode": "create"
+  }
+]
